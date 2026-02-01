@@ -15,6 +15,94 @@ The platform combines:
 
 The goal is not just analytics — but **decision intelligence during crisis scenarios**.
 
+## 🧠 Problem Definition & AI Framing
+
+### The Strategic Imperative
+
+Food delivery platforms are highly sensitive to **compound crisis scenarios**, where multiple failure modes occur simultaneously.  
+This project models a **dual-crisis event** affecting a food delivery ecosystem:
+
+1. **Logistical Collapse** — severe delivery delays caused by external shocks (e.g., weather, capacity shortage)
+2. **Customer Trust Breakdown** — negative sentiment driven by poor service and food safety concerns
+
+Individually, these issues are manageable. Combined, they form a **non-linear failure pattern** that traditional batch analytics and retrospective BI systems fail to detect in time.
+
+---
+
+### Why This Is an AI Problem (Not Just Analytics)
+
+During crisis onset:
+- Delivery delays increase gradually, not abruptly
+- Customer dissatisfaction manifests as **textual sentiment**, not numeric metrics
+- Churn occurs **after** the crisis, not during it
+
+This creates a delayed feedback loop where:
+- Operational metrics degrade first
+- Customer sentiment worsens next
+- Churn materializes last
+
+Traditional dashboards detect the problem **after churn has already happened**.
+
+The AI challenge is to:
+> **Predict churn risk early by learning latent signals across operations, sentiment, and customer behavior — before revenue loss occurs.**
+
+---
+
+### Data Challenge: No Single Dataset Is Sufficient
+
+No publicly available dataset captures:
+- Real delivery network variability
+- Customer identity and lifecycle behavior
+- Crisis-driven sentiment signals
+- Real-time drift dynamics
+
+To address this, the project intentionally adopts a **Hybrid Augmented Dataset strategy**.
+
+---
+
+### Hybrid Dataset Strategy (AI Framing Decision)
+
+This project combines:
+
+#### 1️⃣ Real Operational Backbone (Kaggle / DoorDash Dataset)
+- Captures authentic delivery variance
+- Includes real timestamps, delays, and store-level behavior
+- Represents realistic logistics noise (traffic, weather, batching)
+
+#### 2️⃣ Synthetic Intelligence Layer (Custom Data Generation)
+To make the dataset **AI-usable**, synthetic layers are introduced:
+
+- **Customer Identity**
+  - Generated customer IDs, segments, signup timelines
+  - Enables retention and churn modeling
+
+- **Crisis Sentiment Injection**
+  - Probabilistic generation of negative reviews
+  - Direct correlation between delivery delay and complaint likelihood
+  - Explicit simulation of food safety incidents
+
+- **Temporal Drift Simulation**
+  - Timestamp shifting to project historical data into a live (2026) timeline
+  - Controlled crisis phase where delivery times worsen for select markets
+
+This hybrid approach preserves **real-world realism** while enabling **end-to-end AI modeling**.
+
+---
+
+### AI Framing Summary
+
+The problem is framed not as:
+- “Predict churn from historical data”
+
+But as:
+> **Detect early churn risk under crisis conditions by learning cross-signal patterns spanning operations, sentiment, geography, and customer behavior.**
+
+This framing directly motivates:
+- Feature engineering choices (RFM, sentiment velocity, crisis exposure)
+- Recall-first model optimization
+- Explainable, business-aligned outputs rather than black-box accuracy
+
+
 ---
 
 ## 2️⃣ Architecture (High Level)
@@ -242,6 +330,151 @@ quickbite-crisis-analytics/
 - Rebalance dasher supply across markets
 - Use congestion ratios as early-warning signals for demand surges
 
+
+---
+
+## 🔟 Automated Jobs & Pipelines (Database ↔ AI Workflow)
+
+### End-to-End Lakehouse Orchestration
+
+The Crisis Recovery platform is orchestrated using **Databricks Jobs**, enabling reliable, repeatable, and production-style execution across all data layers.
+
+### Pipeline Flow
+
+- **bronze_ingestion**  
+  Raw data ingestion using Auto Loader (streaming-compatible design)
+
+- **silver_table**  
+  Data cleaning, enrichment, SLA computation, sentiment signals, and feature preparation
+
+- **gold_table**  
+  Business-ready KPIs, churn risk signals, and operational intelligence
+
+This job executes the complete **Bronze → Silver → Gold** lifecycle without manual intervention.
+
+![Lakehouse Pipeline Graph](assets/jobs/Jobs_&_pipelines_2.png)
+
+---
+
+### Execution Characteristics
+
+- Fully automated task dependencies
+- Serverless compute enabled
+- Lineage tracked across **12 upstream tables** and **2 downstream tables**
+- End-to-end execution completes in approximately **2 minutes**
+
+![Pipeline Timeline](assets/jobs/Jobs_&_pipelines_3.png)
+
+![Pipeline Task List](assets/jobs/Jobs_&_pipelines_4.png)
+
+---
+
+### Why This Matters
+
+This orchestration layer demonstrates:
+- Clear separation of concerns across data layers
+- Strong database ↔ analytics ↔ AI integration
+- Production-grade data engineering practices
+
+This directly satisfies the **Database ↔ AI Workflow** evaluation criterion.
+
+---
+
+## 1️⃣1️⃣ MLflow Experiments (Training, Evaluation & Metrics)
+
+### Experiment Tracking Strategy
+
+All churn model experiments are tracked using **MLflow Experiments** under the Databricks workspace path:
+/Shared/QuickBite_Churn_Prediction
+
+Each run captures:
+- Feature set configuration
+- Model parameters
+- Evaluation metrics
+- Training artifacts
+- Source notebook lineage
+
+![MLflow Experiments](assets/mlflow/mlflow_1.png)
+
+---
+
+### Model Evaluation Philosophy
+
+The churn model is optimized for **Recall**, not overall accuracy.
+
+**Rationale**
+- In crisis scenarios, missing a churn-risk customer is more costly than triggering a false positive
+- Early identification enables proactive retention actions
+
+**Primary Metric**
+- `recall_churn`
+
+![MLflow Metrics](assets/mlflow/mlflow_2.png)
+
+---
+
+### Experiment Transparency
+
+Each MLflow run provides:
+- Full artifact lineage (Spark ML pipeline)
+- Environment reproducibility (conda + python environment)
+- Feature-set traceability for explainability
+
+![MLflow Artifacts](assets/mlflowmlflow_3.png)
+
+---
+
+### Why This Matters
+
+This experimentation setup ensures:
+- Metric-driven model selection
+- Reproducibility and auditability
+- Strong alignment between technical evaluation and business risk
+
+This satisfies **Training, Evaluation & Metrics** and **Model Selection & Technical Reasoning** criteria.
+
+---
+
+## 1️⃣2️⃣ Model Registry & Lifecycle Governance
+
+### Registered Staging Model
+
+The final churn model is registered in the **MLflow Model Registry** as:
+quickbite_churn_predictor
+
+![Registered Models](assets/models/model_1.png)
+
+---
+
+### Versioned Model Lifecycle
+
+- Multiple model versions tracked
+- Explicit metadata and tags applied
+- Known limitations documented (e.g., extreme class imbalance)
+- Full audit trail of model evolution
+
+![Model Versions](assets/models/model_2.png)
+
+---
+
+### Governance & Deployment Readiness
+
+Each registered model includes:
+- Input/output schema via model signature
+- Spark ML pipeline compatibility
+- Rollback support through versioning
+- Deployment-ready artifacts for batch or serving use cases
+
+This elevates the project from **model experimentation** to **enterprise-grade MLOps**.
+
+---
+
+### Why This Matters
+
+This layer demonstrates:
+- Model governance and lifecycle control
+- Explainability through feature traceability
+- Readiness for real-world deployment scenarios
 
 ---
 
