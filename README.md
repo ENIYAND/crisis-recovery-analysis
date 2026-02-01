@@ -189,8 +189,8 @@ quickbite-crisis-analytics/
 ---
 
 ### 👥 Customer Risk & Retention — Churn Signals
-![Customer Risk & Retention](assets/dashboards/Customer Risk & Retention_1.png)
-![Customer Risk & Retention](assets/dashboards/Customer Risk & Retention_2.png)
+![Customer Risk & Retention](assets/dashboards/Customer_Risk_&_Retention_1.png)
+![Customer Risk & Retention](assets/dashboards/Customer_Risk_&_Retention_2.png)
 
 **Observed Patterns**
 - High-risk churn segments show:
@@ -210,7 +210,7 @@ quickbite-crisis-analytics/
 ---
 
 ### 🧼 Safety & Hygiene Intelligence — Geographic Risk
-![Safety & Hygiene Intelligence](assets/dashboards/Safety & Hygiene Intelligence (Map)_1.png)
+![Safety & Hygiene Intelligence](assets/dashboards/Safety_&_Hygiene_Intelligence_(Map)_1.png)
 
 **Observed Patterns**
 - Hygiene-related incidents form **clear geographic clusters**
@@ -228,7 +228,7 @@ quickbite-crisis-analytics/
 ---
 
 ### 🚦 Market Congestion — Capacity Imbalance
-![Market Congestion](assets/dashboards/Market Congestion.png)
+![Market Congestion](assets/dashboards/Market_Congestion.png)
 
 **Observed Patterns**
 - Congestion ratios vary significantly by market
