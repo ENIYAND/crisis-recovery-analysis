@@ -155,6 +155,8 @@ quickbite-crisis-analytics/
 ## 9️⃣ Key Insights & Findings
 
 ### 📌 Executive Overview — Crisis Behavior at a Glance
+![Daily Crisis KPIs](assets/dashboards/Executive_Overview_1.png)
+![Daily Crisis KPIs](assets/dashboards/Executive_Overview_2.png)
 
 **Observed Patterns**
 - Late complaints spike sharply around **October 2025**, coinciding with the simulated crisis period
