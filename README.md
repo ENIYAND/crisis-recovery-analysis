@@ -170,6 +170,8 @@ quickbite-crisis-analytics/
 ---
 
 ### ⚙️ SLA & Operations Health — Stress Signals
+![SLA & Operations Health](assets/dashboards/SLA&Operations_health_1.png)
+![SLA & Operations Health](assets/dashboards/SLA&Operations_health_2.png)
 
 **Observed Patterns**
 - Average delivery delay increases drastically during crisis months
@@ -187,6 +189,8 @@ quickbite-crisis-analytics/
 ---
 
 ### 👥 Customer Risk & Retention — Churn Signals
+![Customer Risk & Retention](assets/dashboards/Customer Risk & Retention_1.png)
+![Customer Risk & Retention](assets/dashboards/Customer Risk & Retention_2.png)
 
 **Observed Patterns**
 - High-risk churn segments show:
@@ -206,6 +210,7 @@ quickbite-crisis-analytics/
 ---
 
 ### 🧼 Safety & Hygiene Intelligence — Geographic Risk
+![Safety & Hygiene Intelligence](assets/dashboards/Safety & Hygiene Intelligence (Map)_1.png)
 
 **Observed Patterns**
 - Hygiene-related incidents form **clear geographic clusters**
@@ -223,6 +228,7 @@ quickbite-crisis-analytics/
 ---
 
 ### 🚦 Market Congestion — Capacity Imbalance
+![Market Congestion](assets/dashboards/Market Congestion.png)
 
 **Observed Patterns**
 - Congestion ratios vary significantly by market
