@@ -773,7 +773,7 @@ By combining operational data, customer sentiment, and machine learning, the pla
 > The core value lies not in predicting churn alone, but in **explaining why customers are at risk and what action should follow**.
 
 
-##1️⃣7️⃣ Closure:
+## 1️⃣7️⃣ Closure:
  Finally, this project demonstrates:
  
 - Strong problem framing
