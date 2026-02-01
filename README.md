@@ -154,12 +154,86 @@ quickbite-crisis-analytics/
 
 ## 9️⃣ Key Insights & Findings
 
-- Customer churn risk spikes **after clusters of negative sentiment**
-- Hygiene issues show **strong geographic concentration**
-- Crisis exposure combined with recency is a stronger churn signal than lifetime value
-- Early sentiment shifts precede SLA degradation
+### 📌 Executive Overview — Crisis Behavior at a Glance
 
-These insights enable **proactive crisis recovery**, not reactive firefighting.
+**Observed Patterns**
+- Late complaints spike sharply around **October 2025**, coinciding with the simulated crisis period
+- Safety incidents remain consistently elevated during the crisis window
+- Despite operational stress, **order volume does not collapse**
+
+**Insight**
+> The crisis impacts service quality and safety signals before it impacts demand.  
+> Customers continue ordering even as experience degrades — indicating *inelastic demand during emergencies*.
+
+---
+
+### ⚙️ SLA & Operations Health — Stress Signals
+
+**Observed Patterns**
+- Average delivery delay increases drastically during crisis months
+- Outstanding order backlog rises in a cyclical pattern
+- Store-level SLA rankings show **a small subset of stores repeatedly underperforming**
+
+**Insight**
+> Operational stress is **localized, not uniform**.  
+> A limited number of stores disproportionately contribute to SLA degradation, making them ideal intervention targets.
+
+**Business Action**
+- Prioritize SLA recovery for the bottom-performing stores
+- Redistribute delivery capacity rather than applying blanket fixes
+
+---
+
+### 👥 Customer Risk & Retention — Churn Signals
+
+**Observed Patterns**
+- High-risk churn segments show:
+  - Longer inactivity (`days_since_last_order`)
+  - Higher negative experience counts
+- High lifetime value customers still appear in **high churn-risk segments**
+- Churn risk is not strictly correlated with historical value
+
+**Insight**
+> During crises, **recent negative experience outweighs long-term loyalty**.  
+> Even valuable customers churn if the last interaction is poor.
+
+**Business Action**
+- Trigger retention offers based on *recent sentiment + inactivity*, not lifetime value alone
+- Prioritize proactive outreach for customers exposed to crisis-period failures
+
+---
+
+### 🧼 Safety & Hygiene Intelligence — Geographic Risk
+
+**Observed Patterns**
+- Hygiene-related incidents form **clear geographic clusters**
+- Certain store locations repeatedly appear in safety hotspots
+- Risk is spatially concentrated, not randomly distributed
+
+**Insight**
+> Hygiene risk propagates geographically before becoming systemic.  
+> Early spatial clustering provides a **leading indicator** of broader safety issues.
+
+**Business Action**
+- Dispatch inspections and audits to hotspot zones
+- Temporarily restrict high-risk stores during peak crisis windows
+
+---
+
+### 🚦 Market Congestion — Capacity Imbalance
+
+**Observed Patterns**
+- Congestion ratios vary significantly by market
+- Some markets show high busy-dasher counts but insufficient on-shift dashers
+- Other markets remain underutilized
+
+**Insight**
+> Crisis impact is **market-specific**, driven by local supply–demand imbalance rather than global failure.
+
+**Business Action**
+- Rebalance dasher supply across markets
+- Use congestion ratios as early-warning signals for demand surges
+
 
 ---
 
