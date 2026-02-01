@@ -420,7 +420,7 @@ Each MLflow run provides:
 - Environment reproducibility (conda + python environment)
 - Feature-set traceability for explainability
 
-![MLflow Artifacts](assets/mlflowmlflow_3.png)
+![MLflow Artifacts](assets/mlflow/mlflow_3.png)
 
 ---
 
