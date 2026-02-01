@@ -696,7 +696,7 @@ This layer demonstrates:
 
 ---
 
-##1️⃣6️⃣ 💼 Business Impact & Practical Use
+## 1️⃣6️⃣ 💼 Business Impact & Practical Use
 
 ### From Analytics to Action
 
