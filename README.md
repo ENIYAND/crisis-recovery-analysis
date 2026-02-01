@@ -210,7 +210,7 @@ quickbite-crisis-analytics/
 ---
 
 ### 🧼 Safety & Hygiene Intelligence — Geographic Risk
-![Safety & Hygiene Intelligence](assets/dashboards/Safety_&_Hygiene_Intelligence_(Map)_1.png)
+![Safety & Hygiene Intelligence](assets/dashboards/Safety_&_Hygiene_Intelligence(Map)_1.png)
 
 **Observed Patterns**
 - Hygiene-related incidents form **clear geographic clusters**
