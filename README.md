@@ -238,9 +238,227 @@ quickbite-crisis-analytics/
 └── README.md
 ```
 
+## 9️⃣ 📊 Data Understanding & Feature Engineering
+
+### Understanding the Data Landscape
+
+The data powering this project is intentionally **multi-layered**, reflecting the complexity of a real food-delivery ecosystem under crisis conditions.  
+Rather than treating data as flat records, the system distinguishes between **operational signals**, **customer behavior**, and **experience-driven sentiment**.
+
+The primary data domains are:
+
+- **Order & Delivery Events**
+  - Order timestamps, delivery duration, delay indicators
+  - Store- and market-level operational context
+
+- **Customer Lifecycle Signals**
+  - Order frequency, recency, and monetary value
+  - Customer segment and engagement patterns
+
+- **Sentiment & Experience Signals**
+  - Review text mapped to sentiment polarity and topics
+  - Explicit modeling of food safety and service complaints
+
+This separation allows the model to learn **why** churn occurs, not just **when** it occurs.
+
 ---
 
-## 9️⃣ Key Insights & Findings
+### Feature Engineering Philosophy
+
+Feature engineering in this project follows three guiding principles:
+
+1. **Crisis Sensitivity**  
+   Features must react quickly to abnormal operational behavior.
+
+2. **Temporal Awareness**  
+   Recent experiences matter more than historical averages during a crisis.
+
+3. **Explainability**  
+   Every feature should map to an interpretable business concept.
+
+---
+
+### Core Feature Categories
+
+#### 1️⃣ Behavioral & Engagement Features
+These capture how customers interact with the platform over time.
+
+- `total_orders` — overall engagement depth  
+- `days_since_last_order` — inactivity signal  
+- `avg_star_rating` — historical satisfaction baseline  
+
+These features establish **normal customer behavior** prior to crisis impact.
+
+---
+
+#### 2️⃣ RFM Scoring (Customer Value Context)
+
+To quantify customer value, classic **RFM (Recency, Frequency, Monetary)** scoring is applied:
+
+- Recency → How recently the customer ordered
+- Frequency → How often the customer orders
+- Monetary → Total spend over lifetime
+
+The resulting `rfm_score` allows the model to distinguish:
+- High-value customers temporarily dissatisfied
+- Low-engagement customers naturally at churn risk
+
+This prevents the model from overreacting to one-off bad experiences.
+
+---
+
+#### 3️⃣ Crisis Exposure Features
+
+These features explicitly encode **crisis impact**, which traditional churn models ignore.
+
+- `late_order_ratio` — proportion of delayed deliveries
+- `crisis_exposure_index` — intensity of exposure to crisis conditions
+- `sentiment_velocity` — rate of sentiment deterioration over time
+
+These features allow the model to detect **early warning signals** before churn manifests.
+
+---
+
+#### 4️⃣ Sentiment-Derived Features
+
+Customer reviews are transformed into structured intelligence:
+
+- `ai_sentiment` — Positive / Neutral / Negative
+- `ai_topic` — Service vs Hygiene vs Other
+- `sentiment_score` — numeric polarity
+
+By converting text into explainable signals, the model learns:
+- Whether dissatisfaction is service-related or safety-related
+- Which complaints correlate most strongly with churn
+
+---
+
+### Preventing Data Leakage
+
+To ensure model validity:
+
+- All features are **aggregated at the customer level**
+- No future information leaks into training windows
+- Sentiment features are derived only from **past orders**
+
+This ensures that predictions simulate **real-time decision-making**, not hindsight.
+
+---
+
+### Feature Engineering Summary
+
+The final feature set represents a **crisis-aware customer state**, combining:
+
+- Long-term value (RFM)
+- Short-term experience (sentiment + delays)
+- Temporal dynamics (velocity and recency)
+
+Rather than predicting churn from static history, the model learns **how customers react under stress**, which is critical for crisis recovery scenarios.
+
+## 🔟 🤖 AI Innovation & Insight Generation
+
+### Beyond Traditional Churn Prediction
+
+This project goes beyond static churn modeling by introducing **crisis-aware intelligence**, where churn is treated as a *delayed outcome* of compounding operational and sentiment failures.
+
+The innovation lies in **how signals are combined**, not just in the model itself.
+
+---
+
+### Key AI Innovations
+
+- **Hybrid Intelligence Pipeline**
+  - Combines real operational data with synthetic sentiment and customer identity
+  - Enables end-to-end AI modeling where no single dataset would suffice
+
+- **Sentiment as a Leading Indicator**
+  - Unstructured customer reviews are transformed into structured, explainable features
+  - Sentiment deterioration is observed *before* churn occurs
+
+- **Crisis Exposure Modeling**
+  - Explicit features capture customer exposure to delivery delays and safety incidents
+  - Allows early risk detection during crisis onset rather than post-failure analysis
+
+- **Explainable AI Outputs**
+  - Model predictions can be traced back to interpretable signals:
+    - Recent delays
+    - Negative sentiment
+    - Inactivity patterns
+
+---
+
+### Insight Generation
+
+By fusing operational, behavioral, and sentiment signals, the system reveals that:
+
+- Customer demand may remain stable during a crisis
+- Service quality degrades first, sentiment follows, and churn occurs later
+- High-value customers are not immune to churn under repeated negative experiences
+
+This enables **proactive intervention**, not reactive reporting.
+
+---
+
+## 1️⃣1️⃣ ⚙️ Model Selection & Technical Reasoning
+
+### Why Gradient-Boosted Trees (GBT)
+
+A **Gradient-Boosted Trees (GBT)** classifier was selected for churn prediction due to:
+
+- Ability to model **non-linear interactions** between features
+- Strong performance on mixed numerical features
+- Native support in Spark for scalable training
+
+Crisis-driven churn is not linear — GBT captures threshold effects such as:
+- Sudden risk increase after repeated delays
+- Interaction between sentiment and recency
+
+---
+
+### Pipeline-Based Architecture
+
+The model is implemented as a **Spark ML Pipeline**, ensuring:
+
+- Consistent feature transformation
+- Reproducible training and inference
+- Seamless integration with MLflow tracking
+
+This mirrors production ML system design.
+
+---
+
+### Metric Selection: Recall Over Accuracy
+
+The model is optimized for **Recall**, not accuracy.
+
+**Rationale**
+- Missing a churn-risk customer during a crisis is costlier than a false alert
+- High recall enables proactive retention actions
+
+This aligns technical optimization directly with business impact.
+
+---
+
+### Known Limitations
+
+- Extreme class imbalance in churn labels
+- Synthetic sentiment simplifies real-world NLP complexity
+
+These limitations are explicitly documented and surfaced through MLflow metadata.
+
+---
+
+### Technical Summary
+
+Modeling decisions were driven by:
+- Business risk prioritization
+- Explainability requirements
+- Production readiness over leaderboard metrics
+
+
+---
+
+## 1️⃣2️⃣ Key Insights & Findings
 
 ### 📌 Executive Overview — Crisis Behavior at a Glance
 ![Daily Crisis KPIs](assets/dashboards/Executive_Overview_1.png)
@@ -333,7 +551,7 @@ quickbite-crisis-analytics/
 
 ---
 
-## 🔟 Automated Jobs & Pipelines (Database ↔ AI Workflow)
+## 1️⃣3️⃣ Automated Jobs & Pipelines (Database ↔ AI Workflow)
 
 ### End-to-End Lakehouse Orchestration
 
@@ -380,7 +598,7 @@ This directly satisfies the **Database ↔ AI Workflow** evaluation criterion.
 
 ---
 
-## 1️⃣1️⃣ MLflow Experiments (Training, Evaluation & Metrics)
+## 1️⃣4️⃣  MLflow Experiments (Training, Evaluation & Metrics)
 
 ### Experiment Tracking Strategy
 
@@ -435,7 +653,7 @@ This satisfies **Training, Evaluation & Metrics** and **Model Selection & Techni
 
 ---
 
-## 1️⃣2️⃣ Model Registry & Lifecycle Governance
+## 1️⃣5️⃣ Model Registry & Lifecycle Governance
 
 ### Registered Staging Model
 
